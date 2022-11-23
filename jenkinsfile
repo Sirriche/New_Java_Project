@@ -12,3 +12,20 @@ node {
         echo "In archive stage" 
     }
 }
+=========================================================
+node {
+     def MVNHome = tool name: 'MVN_HOME', type: 'maven'  
+    stage('Build') { 
+        git branch: 'main', credentialsId: '66987ffd-2559-485e-8a64-6b5b94eb6321', 
+        url: 'https://github.com/vikas99341/New_Java_Project.git' 
+    }
+    stage('compile-step') { 
+        sh "${MVNHome}/bin/mvn compile" 
+    }
+    stage('package') { 
+        sh "${MVNHome}/bin/mvn package" 
+    }
+    stage('verify') { 
+        sh "${MVNHome}/bin/mvn verify" 
+    }
+}
